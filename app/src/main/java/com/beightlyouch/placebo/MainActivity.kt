@@ -6,12 +6,19 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import io.realm.Realm
+import io.realm.Sort
 
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var realm: Realm
+    private lateinit var adapter: CustomRecyclerViewAdapter
+    private lateinit var layoutManager: RecyclerView.LayoutManager
+    
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +30,21 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, EditActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val realmResults = realm.where(PlaceboButton::class.java)
+            .findAll()
+            .sort("id", Sort.DESCENDING )
+
+        //LayoutManager
+        layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = layoutManager
+
+        //Adapter
+        adapter = CustomRecyclerViewAdapter(realmResults)
+        recyclerView.adapter = adapter
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

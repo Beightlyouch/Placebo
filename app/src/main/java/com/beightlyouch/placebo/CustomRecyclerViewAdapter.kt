@@ -1,11 +1,9 @@
 package com.beightlyouch.placebo
 
 import android.text.format.DateFormat
-import android.text.format.DateFormat.format
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import io.realm.Realm
 import io.realm.RealmResults
 
 class CustomRecyclerViewAdapter(realmResults: RealmResults<PlaceboButton>): RecyclerView.Adapter<ViewHolder>() {
@@ -25,7 +23,7 @@ class CustomRecyclerViewAdapter(realmResults: RealmResults<PlaceboButton>): Recy
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         //ViewHolder <=BIND=> Data
         val pb = rResults[position]
-        holder.dateView?.text = DateFormat.format("yyyy/MM/ddkk:mm", pb?.dateTime)
+        holder.dateView?.text = DateFormat.format("yyyy/MM/dd", pb?.dateTime)
         holder.titleView?.text = pb?.title
     }
 }

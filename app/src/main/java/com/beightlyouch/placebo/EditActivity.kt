@@ -2,6 +2,7 @@ package com.beightlyouch.placebo
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_edit.*
 import io.realm.kotlin.createObject
@@ -21,7 +22,7 @@ class EditActivity : AppCompatActivity() {
         saveBtn.setOnClickListener {
             var title: String = ""
             if(!titleTxt.text.isNullOrEmpty()) {
-                title = titleTxt.toString()
+                title = titleTxt.text.toString()
             }
             realm.executeTransaction {
                 val maxId = realm.where<PlaceboButton>().max("id")
@@ -29,6 +30,7 @@ class EditActivity : AppCompatActivity() {
                 val pb = realm.createObject<PlaceboButton>(nextId)
                 pb.dateTime = Date()
                 pb.title = title
+                Log.d("TAG", title)
             }
             finish()
         }
