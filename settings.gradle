@@ -1,0 +1,2 @@
+rootProject.name='Placebo'
+include ':app'
