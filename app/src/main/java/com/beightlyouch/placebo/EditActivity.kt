@@ -19,18 +19,35 @@ class EditActivity : AppCompatActivity() {
         setContentView(R.layout.activity_edit)
         realm = Realm.getDefaultInstance()
 
+        val id = intent.getLongExtra("id", 0L)
+        if(id > 0L) {
+            val pb = realm.where<PlaceboButton>().equalTo("id", id).findFirst()
+            titleTxt.setText(pb?.title)
+        }
+
         saveBtn.setOnClickListener {
             var title: String = ""
             if(!titleTxt.text.isNullOrEmpty()) {
                 title = titleTxt.text.toString()
             }
-            realm.executeTransaction {
-                val maxId = realm.where<PlaceboButton>().max("id")
-                val nextId = (maxId?.toLong()?: 0L) + 1L
-                val pb = realm.createObject<PlaceboButton>(nextId)
-                pb.dateTime = Date()
-                pb.title = title
-                Log.d("TAG", title)
+
+            when(id) {
+                0L -> {
+                    realm.executeTransaction {
+                        val maxId = realm.where<PlaceboButton>().max("id")
+                        val nextId = (maxId?.toLong() ?: 0L) + 1L
+                        val pb = realm.createObject<PlaceboButton>(nextId)
+                        pb.dateTime = Date()
+                        pb.title = title
+                        Log.d("TAG", title)
+                    }
+                }
+                else -> {
+                    realm.executeTransaction {
+                        val pb = realm.where<PlaceboButton>().equalTo("id", id).findFirst()
+                        pb?.title = title
+                    }
+                }
             }
             finish()
         }

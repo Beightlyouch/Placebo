@@ -1,5 +1,6 @@
 package com.beightlyouch.placebo
 
+import android.content.Intent
 import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -25,5 +26,12 @@ class CustomRecyclerViewAdapter(realmResults: RealmResults<PlaceboButton>): Recy
         val pb = rResults[position]
         holder.dateView?.text = DateFormat.format("yyyy/MM/dd", pb?.dateTime)
         holder.titleView?.text = pb?.title
+
+        //setOnclick
+        holder.itemView.setOnClickListener {
+            val intent = Intent(it.context,EditActivity::class.java)
+            intent.putExtra("id", pb?.id)
+            it.context.startActivity(intent)
+        }
     }
 }
