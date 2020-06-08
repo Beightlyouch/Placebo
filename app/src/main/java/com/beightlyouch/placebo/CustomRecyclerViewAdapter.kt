@@ -29,7 +29,7 @@ class CustomRecyclerViewAdapter(realmResults: RealmResults<PlaceboButton>): Recy
 
         //setOnclick
         holder.itemView.setOnClickListener {
-            val intent = Intent(it.context,EditActivity::class.java)
+            val intent = Intent(it.context,ButtonActivity::class.java)
             intent.putExtra("id", pb?.id)
             it.context.startActivity(intent)
         }

@@ -1,8 +1,10 @@
 package com.beightlyouch.placebo
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_edit.*
 import io.realm.kotlin.createObject
@@ -49,7 +51,9 @@ class EditActivity : AppCompatActivity() {
                     }
                 }
             }
-            finish()
+            val intent = Intent(this, ButtonActivity::class.java)
+            intent.putExtra("id", id)
+            startActivity(intent)
         }
     }
 

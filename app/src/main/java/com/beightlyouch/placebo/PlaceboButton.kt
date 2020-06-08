@@ -9,4 +9,5 @@ open class PlaceboButton : RealmObject() {
     var id: Long = 0
     var dateTime: Date = Date()
     var title: String = ""  //タイトル
+    var count: Long = 0
 }
