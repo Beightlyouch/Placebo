@@ -11,4 +11,6 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="save_txt">保存</string>
     <string name="save_text">SAVE</string>
+    <string name="hint">NEW BUTTON CREATE</string>
+    <string name="hint_text">Create a new button...</string>
 </resources>

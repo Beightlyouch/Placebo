@@ -21,7 +21,7 @@ class EditActivity : AppCompatActivity() {
         setContentView(R.layout.activity_edit)
         realm = Realm.getDefaultInstance()
 
-        val id = intent.getLongExtra("id", 0L)
+        var id = intent.getLongExtra("id", 0L)
         if(id > 0L) {
             val pb = realm.where<PlaceboButton>().equalTo("id", id).findFirst()
             titleTxt.setText(pb?.title)
@@ -41,7 +41,7 @@ class EditActivity : AppCompatActivity() {
                         val pb = realm.createObject<PlaceboButton>(nextId)
                         pb.dateTime = Date()
                         pb.title = title
-                        Log.d("TAG", title)
+                        id = nextId
                     }
                 }
                 else -> {
